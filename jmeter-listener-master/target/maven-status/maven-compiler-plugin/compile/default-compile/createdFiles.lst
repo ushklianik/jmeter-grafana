@@ -1,0 +1,17 @@
+cloud\testload\jmeter\config\influxdb\RequestMeasurement$Fields.class
+cloud\testload\jmeter\InfluxDBBackendListenerClient.class
+cloud\testload\jmeter\JMPoint.class
+cloud\testload\jmeter\config\influxdb\TestStartEndMeasurement$Fields.class
+cloud\testload\jmeter\config\influxdb\RequestMeasurement$Tags.class
+cloud\testload\jmeter\config\influxdb\InfluxDBConfig.class
+cloud\testload\jmeter\config\influxdb\VirtualUsersMeasurement$Fields.class
+cloud\testload\jmeter\ClickHouseBackendListenerClientV2.class
+cloud\testload\jmeter\config\influxdb\RequestMeasurement.class
+cloud\testload\jmeter\config\influxdb\TestStartEndMeasurement$Values.class
+cloud\testload\jmeter\config\influxdb\VirtualUsersMeasurement$Tags.class
+cloud\testload\jmeter\ClickHouseBackendListenerClient.class
+cloud\testload\jmeter\config\influxdb\TestStartEndMeasurement.class
+cloud\testload\jmeter\config\influxdb\VirtualUsersMeasurement.class
+cloud\testload\jmeter\InfluxDBImportFileClient.class
+main\java\cloud\testload\jmeter\config\clickhouse\ClickHouseConfig.class
+cloud\testload\jmeter\config\influxdb\TestStartEndMeasurement$Tags.class

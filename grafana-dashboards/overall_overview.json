@@ -1,0 +1,845 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      },
+      {
+        "datasource": "ClickHouse",
+        "enable": true,
+        "hide": false,
+        "iconColor": "#73BF69",
+        "limit": 100,
+        "name": "Start",
+        "query": "SELECT\n  test_started  AS time,\n  run_id AS text,\n  test_name\nFROM\n  jmresults_tests\nWHERE\n  timestamp_sec >= toDateTime($from) AND timestamp_sec < toDateTime($to)\n",
+        "rawQuery": "SELECT\n  test_started  AS time,\n  run_id AS text,\n  test_name\nFROM\n  jmresults_tests\nWHERE\n  timestamp_sec >= toDateTime(1605954396) AND timestamp_sec < toDateTime(1608546396)",
+        "showIn": 0,
+        "tags": [],
+        "type": "tags"
+      },
+      {
+        "datasource": "ClickHouse",
+        "enable": true,
+        "hide": false,
+        "iconColor": "#FF9830",
+        "limit": 100,
+        "name": "End",
+        "query": "SELECT\n  test_ended  AS time,\n  run_id AS text,\n  test_name\nFROM\n  jmresults_tests\nWHERE\n  timestamp_sec >= toDateTime($from) AND timestamp_sec < toDateTime($to)\n",
+        "rawQuery": "SELECT\n  test_ended  AS time,\n  run_id AS text,\n  test_name\nFROM\n  jmresults_tests\nWHERE\n  timestamp_sec >= toDateTime(1605954396) AND timestamp_sec < toDateTime(1608546396)",
+        "showIn": 0,
+        "tags": [],
+        "type": "tags"
+      }
+    ]
+  },
+  "description": "Overview of all tests",
+  "editable": true,
+  "gnetId": 9561,
+  "graphTooltip": 1,
+  "id": 21,
+  "iteration": 1608546323361,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 34,
+      "panels": [],
+      "title": "General info",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "ClickHouse",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "grid": {},
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "height": "300",
+      "hiddenSeries": false,
+      "id": 6,
+      "legend": {
+        "alignAsTable": false,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": false,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 3,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "7.3.6",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "database": "default",
+          "dateLoading": false,
+          "dateTimeColDataType": "timestamp_sec",
+          "dateTimeType": "DATETIME",
+          "datetimeLoading": false,
+          "extrapolate": false,
+          "format": "time_series",
+          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "interval": "",
+          "intervalFactor": 1,
+          "query": "SELECT\n    now() as t,\n    avg(average_time),\n    run_id\nFROM jmresults_statistic\n\nWHERE\n    sampler_type = '$sampler_type'\n    AND profile_name = '$profile'\nGROUP BY run_id\n\nORDER BY run_id ASC\n",
+          "rawQuery": "SELECT\n    now() as t,\n    avg(average_time),\n    run_id\nFROM jmresults_statistic\n\nWHERE\n    sampler_type = 'REQUEST'\n    AND profile_name = 'TEST'\nGROUP BY run_id\n\nORDER BY run_id ASC",
+          "refId": "A",
+          "round": "0s",
+          "skip_comments": false,
+          "table": "jmresults",
+          "tableLoading": false
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Average response time",
+      "tooltip": {
+        "msResolution": false,
+        "shared": false,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "total"
+        ]
+      },
+      "yaxes": [
+        {
+          "format": "ms",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "ops",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "ClickHouse",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "grid": {},
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "height": "300",
+      "hiddenSeries": false,
+      "id": 41,
+      "legend": {
+        "alignAsTable": false,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": false,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 3,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "7.3.6",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "database": "default",
+          "dateLoading": false,
+          "dateTimeColDataType": "timestamp_sec",
+          "dateTimeType": "DATETIME",
+          "datetimeLoading": false,
+          "extrapolate": true,
+          "format": "time_series",
+          "formattedQuery": "SELECT $timeSeries as t, count() FROM $table WHERE $timeFilter GROUP BY t ORDER BY t",
+          "interval": "",
+          "intervalFactor": 1,
+          "query": "SELECT\n    now() as t,\n    median(average_time),\n    run_id\nFROM jmresults_statistic\nWHERE sampler_type = '$sampler_type'\nAND profile_name ='$profile'\nGROUP BY run_id\nORDER BY run_id ASC",
+          "rawQuery": "SELECT\n    now() as t,\n    median(average_time),\n    run_id\nFROM jmresults_statistic\nWHERE sampler_type = 'REQUEST'\nAND profile_name ='TEST'\nGROUP BY run_id\nORDER BY run_id ASC",
+          "refId": "A",
+          "round": "0s",
+          "skip_comments": false,
+          "table": "jmresults",
+          "tableLoading": false
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Median response time",
+      "tooltip": {
+        "msResolution": false,
+        "shared": false,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "total"
+        ]
+      },
+      "yaxes": [
+        {
+          "format": "ms",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "ops",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "columns": [],
+      "datasource": "ClickHouse",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "90%",
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "height": "300",
+      "id": 9,
+      "links": [],
+      "pageSize": 50,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": null,
+        "desc": false
+      },
+      "styles": [
+        {
+          "alias": "Дата/время",
+          "align": "auto",
+          "dateFormat": "LT",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "errorRate",
+          "align": "auto",
+          "colorMode": "cell",
+          "colors": [
+            "rgba(0, 0, 0, 0)",
+            "rgba(183, 84, 26, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "decimals": 2,
+          "pattern": "ErrorRate",
+          "thresholds": [
+            "0.00000001",
+            "0.01"
+          ],
+          "type": "number",
+          "unit": "percentunit"
+        },
+        {
+          "alias": "Sampler label",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": false,
+          "pattern": "sample_label",
+          "preserveFormat": false,
+          "sanitize": false,
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "Count",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "pattern": "total",
+          "thresholds": [],
+          "type": "number",
+          "unit": "none"
+        },
+        {
+          "alias": "Errors total",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "Errors",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "90%",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 3,
+          "mappingType": 1,
+          "pattern": "90perc",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "95%",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 3,
+          "mappingType": 1,
+          "pattern": "95perc",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "Total recs.",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "TotalRecs",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "Compression",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 1,
+          "mappingType": 1,
+          "pattern": "Compress",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "start",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "stop",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "Trans./sec.",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "rate",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": "cell",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": false,
+          "mappingType": 1,
+          "pattern": "AvgResp",
+          "thresholds": [
+            "1",
+            "2"
+          ],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": "cell",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "MedianResp",
+          "thresholds": [
+            "1",
+            "2"
+          ],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [
+            "0.01",
+            "0.05"
+          ],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "alias": "",
+          "database": "default",
+          "dateLoading": false,
+          "dateTimeColDataType": "timestamp_sec",
+          "dateTimeType": "DATETIME",
+          "datetimeLoading": false,
+          "dsType": "influxdb",
+          "extrapolate": true,
+          "format": "table",
+          "formattedQuery": "SELECT sample_label,\n       sum(points_count) as \"Total\",\n       count(points_count) as \"TotalRecs\",\n       sum(points_count)/count(points_count) as \"Compress\",\n       avg(average_time)/1000 as \"AvgResp\",\n       min(average_time)/1000 as \"MinResp\",\n       max(average_time)/1000 as \"MaxResp\",\n       quantile(0.9)(average_time) as \"90perc\",\n       quantile(0.95)(average_time) as \"95perc\",\n       quantile(0.97)(average_time) as \"97perc\",\n       quantile(0.99)(average_time) as \"99perc\",\n       sum(errors_count) as \"Errors\",\n       (sum(errors_count)/sum(points_count)) as \"ErrorRate\"\nfrom jmresults\nWHERE  profile_name ='TEST' and run_id='TEST'\nGROUP BY sample_label;",
+          "groupBy": [
+            {
+              "params": [
+                "$interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "interval": "[[agr]]s",
+          "intervalFactor": 1,
+          "measurement": "requests",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT run_id,\n       count(timestamp_sec) as total,\n       min(timestamp_sec) as start,\n       max(timestamp_sec) as stop,\n       total/toUInt64(stop-start) as rate,\n       avg(average_time)/1000 as \"AvgResp\",\n       median(average_time)/1000 as \"MedianResp\",\n       quantileTDigest(0.9)(average_time)/1000 as \"90perc\",\n       quantileTDigest(0.95)(average_time)/1000 as \"95perc\",\n       sum(errors_count) as \"Errors\",\n       (sum(errors_count)/count(timestamp_sec)) as \"ErrorRate\"\nfrom jmresults_statistic\nWHERE  $timeFilter AND profile_name ='$profile' and run_id IN ($runid) and not like(sample_label, 'http%') and sampler_type = '$sampler_type'\nGROUP BY run_id",
+          "rawQuery": "SELECT run_id,\n       count(timestamp_sec) as total,\n       min(timestamp_sec) as start,\n       max(timestamp_sec) as stop,\n       total/toUInt64(stop-start) as rate,\n       avg(average_time)/1000 as \"AvgResp\",\n       median(average_time)/1000 as \"MedianResp\",\n       quantileTDigest(0.9)(average_time)/1000 as \"90perc\",\n       quantileTDigest(0.95)(average_time)/1000 as \"95perc\",\n       sum(errors_count) as \"Errors\",\n       (sum(errors_count)/count(timestamp_sec)) as \"ErrorRate\"\nfrom jmresults_statistic\nWHERE  timestamp_sec >= toDateTime(1608026806) AND profile_name ='TEST' and run_id IN ('R002','R001') and not like(sample_label, 'http%') and sampler_type = 'REQUEST'\nGROUP BY run_id",
+          "refId": "A",
+          "resultFormat": "table",
+          "round": "0s",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "skip_comments": true,
+          "table": "jmresults",
+          "tableLoading": false,
+          "tags": []
+        }
+      ],
+      "title": "Legend",
+      "transform": "table",
+      "type": "table-old"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": "TEST",
+          "value": "TEST"
+        },
+        "datasource": "ClickHouse",
+        "definition": "SELECT DISTINCT profile_name FROM jmresults_statistic",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Profile",
+        "multi": false,
+        "name": "profile",
+        "options": [],
+        "query": "SELECT DISTINCT profile_name FROM jmresults_statistic",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 2,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "ClickHouse",
+        "definition": "SELECT DISTINCT run_id FROM jmresults_statistic where profile_name ='$profile'",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "RunId",
+        "multi": true,
+        "name": "runid",
+        "options": [],
+        "query": "SELECT DISTINCT run_id FROM jmresults_statistic where profile_name ='$profile'",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 2,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "REQUEST",
+          "value": "REQUEST"
+        },
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Sampler type ",
+        "multi": false,
+        "name": "sampler_type",
+        "options": [
+          {
+            "selected": true,
+            "text": "REQUEST",
+            "value": "REQUEST"
+          },
+          {
+            "selected": false,
+            "text": "TRANSACTION",
+            "value": "TRANSACTION"
+          }
+        ],
+        "query": "REQUEST,TRANSACTION",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "1",
+          "value": "1"
+        },
+        "error": null,
+        "hide": 2,
+        "includeAll": false,
+        "label": "Aggregation",
+        "multi": false,
+        "name": "agr",
+        "options": [
+          {
+            "selected": true,
+            "text": "1",
+            "value": "1"
+          },
+          {
+            "selected": false,
+            "text": "10",
+            "value": "10"
+          },
+          {
+            "selected": false,
+            "text": "60",
+            "value": "60"
+          },
+          {
+            "selected": false,
+            "text": "1800",
+            "value": "1800"
+          },
+          {
+            "selected": false,
+            "text": "3600",
+            "value": "3600"
+          }
+        ],
+        "query": "1,10,60,1800,3600",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "10s",
+      "1m",
+      "5m",
+      "2h"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Overview of all tests",
+  "uid": "demo",
+  "version": 9
+}
