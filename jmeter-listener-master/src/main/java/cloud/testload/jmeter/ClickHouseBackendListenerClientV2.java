@@ -371,6 +371,7 @@ public class ClickHouseBackendListenerClientV2 extends AbstractBackendListenerCl
     @Override
     public void teardownTest(BackendListenerContext context) throws Exception {
         LOGGER.info("Shutting down clickHouse scheduler...");
+        scheduler.shutdown();
         if (context.getParameter(KEY_END_TEST).equals("")){
             endTest = String.valueOf(System.currentTimeMillis());
         } else {
@@ -398,6 +399,14 @@ public class ClickHouseBackendListenerClientV2 extends AbstractBackendListenerCl
         if (recordLevel.equals("aggregate")) {
             flushAggregatedBatchPoints();
         }else flushBatchPoints();
+
+        try {
+            scheduler.awaitTermination(30, TimeUnit.SECONDS);
+            LOGGER.info("Clickhouse scheduler terminated!");
+        } catch (InterruptedException e) {
+            LOGGER.error("Error waiting for end of scheduler");
+        }
+
         super.teardownTest(context);
     }
 
